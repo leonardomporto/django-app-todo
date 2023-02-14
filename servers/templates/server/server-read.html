@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+    <h2>servers</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for server in servers %}
+        <tr>
+          <td>{{ server.name }}</td>
+          <td>{{ server.description }}</td>
+          <td>{{ server.price }}</td>
+          <td><a href="{% url 'server_update' server.id %}">Edit</a></td>
+          <td>
+            <form action="{% url 'server_delete' server.id %}" method="post">
+              {% csrf_token %}
+              <input type="submit" value="Delete">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'server_create' %}">New server</a>
+ 

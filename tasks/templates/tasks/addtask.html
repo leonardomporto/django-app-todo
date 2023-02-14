@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Nova Tarefa{% endblock %}
+{% block content %}
+
+<div class="row">
+ 
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Titulo</label>
+                <input class="form-control" type="text" name="title" maxlength="255" required="" id="id_title">
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Descriçao</label>
+                <textarea class="form-control" rows="3" name="descripition" id="id_descripition"></textarea>
+            </div>
+            <br>
+
+            <button class="btn btn-primary" type="submit">Nova Tarefa</button>
+        </form>
+   
+
+</div>
+
+{% endblock %}

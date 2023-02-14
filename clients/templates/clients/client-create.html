@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+
+{% block content %}
+<div class="row">
+    <div class="bd-example">
+        <form method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form layout="horizontal" %}
+            <button class="btn btn-primary" type="submit">Novo Cliente</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

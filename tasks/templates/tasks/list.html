@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block title %} Lista de Tarefas {% endblock %}
+
+{% block content %}
+{% load humanize %}
+<div class="row">
+
+    <div class="col col-sm-9">
+        <!-- <form method="GET" id="search-form">
+                    <input class="form-control" type="text" id="search" name="search" placeholder="Digite o nome da tarefa para buscar..." value="{{ request.GET.search }}">
+                    <i class="fas fa-search" id="search-btn"></i>
+                </form> -->
+        <form method="GET" id="search-form">
+            <!-- <label for="exampleDataList" class="form-label">Datalist example</label> -->
+            <input class="form-control" list="datalistOptions" placeholder="Digita aqui pra pesquisar..." type="text"
+                id="search" value="{{ request.GET.search }}" name="search">
+            <datalist id="datalistOptions">
+                <option value="San Francisco">
+                <option value="New York">
+                <option value="Seattle">
+                <option value="Los Angeles">
+                <option value="Chicago">
+            </datalist>
+        </form>
+        <!-- <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="text" class="form-control" placeholder="Pesquisar">
+                  </div> -->
+        <!-- <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">PESQUISAR</span>
+                    <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                  </div> -->
+    </div>
+
+    <div class="col col-sm text-end">
+        <a class="btn btn-primary" href="newtask/" role="button">Nova Tarefa</a>
+    </div>
+
+</div>
+
+<br>
+
+<div class="list-group">
+    {% for task in tasks %}
+    <a href="task/{{ task.id }}" class="list-group-item list-group-item-action" aria-current="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">{{ task.title }} </h4>
+            <small class="text-muted">{{ task.update_at|naturaltime }}</small>
+        </div>
+        <p class="mb-1 limit" id="mydiv">{{ task.descripition }}</p>
+        <small class="text-muted">{{ task.done }}</small>
+    </a>
+    {% endfor %}
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">List group item heading</h5>
+            <small class="text-muted">3 days ago</small>
+        </div>
+        <p class="mb-1">Some placeholder content in a paragraph.</p>
+        <small class="text-muted">And some muted small print.</small>
+    </a>
+    <a href="#" class="list-group-item list-group-item-action active">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">List group item heading</h5>
+            <small class="text-muted">3 days ago</small>
+        </div>
+        <p class="mb-1">Some placeholder content in a paragraph.</p>
+        <small class="text-muted">And some muted small print.</small>
+    </a>
+</div>
+<br>
+
+
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination  justify-content-center">
+        {% if tasks.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ tasks.previous_page_number }}">Anterior</a>
+        </li>
+        {% endif %}
+
+        {% if tasks.paginator.num_pages%}
+        <li class="page-item"><a class="page-link" href="#">{{ tasks.number }} de {{ tasks.paginator.num_pages}}</a>
+        </li>
+        {% endif %}
+
+        {% if tasks.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ tasks.next_page_number }}">Próximo</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+{% endblock %}

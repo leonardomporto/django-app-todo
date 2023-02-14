@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+    <h2>Clients</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Phone</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in clients %}
+        <tr>
+          <td>{{ client.name }}</td>
+          <td>{{ client.birthday }}</td>
+          <td>{{ client.phone }}</td>
+          <td><a href="{% url 'client_update' client.slug %}">Edit</a></td>
+          <td>
+            <form action="{% url 'client_delete' client.slug %}" method="post">
+              {% csrf_token %}
+              <input type="submit" value="Delete">
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'client_create' %}">New client</a>
+ 
